@@ -21,7 +21,7 @@ def Main():
         from_server+=serverData.decode(Type)
         print(from_server)    
         
-    client.close()
+    #client.close()
     
 if __name__=='__main__':
     Main()
