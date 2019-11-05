@@ -13,7 +13,7 @@ def Main():
     while True:
         conn, addr = serv.accept()
         from_client = ''
-        print("Connection from {addr} has been established!")
+        print(f"Connection from {addr} has been established!")
 
         Data = conn.recv(4096)
             
