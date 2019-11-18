@@ -35,13 +35,13 @@ def Chat():
            if not(username[1:] in online):
              online.append(username[1:])
              print("***New user: " + username[1:] + "***")
-             print('***Total Online User: ' + str(len(online))+"***")             
+             print('***Total Online User: ' + str(len(online))+ "***")             
              
         elif username[:1] == 's':#user saiu/ há bug
            if (user[1:] in online):
              online.remove(username[1:])
              print("***User disconnected: " + username[1:] + "***")
-             print('***Total Online User: ' + str(len(online))+"***")
+             print('***Total Online User: ' + str(len(online))+ "***")
 
 def SendMessage():
     global name
@@ -53,17 +53,17 @@ def SendMessage():
 
         
         if data == 'Quit()':
-            username =  ('s'+name).encode('utf-8')
+            username =  ('s'+ name).encode('utf-8')
             username_header = f"{len(username):<{H_size}}".encode('utf-8')            
-            send.sendto(username_header+username, ('255.255.255.255', 2000)) 
+            send.sendto(username_header + username, ('255.255.255.255', 2000)) 
             os._exit(1)            
           
         elif data != '':
-            username =  ('m'+name).encode('utf-8')
+            username =  ('m'+ name).encode('utf-8')
             username_header = f"{len(username):<{H_size}}".encode('utf-8')
             message = data.encode('utf-8')
             message_header = f"{len(message):<{H_size}}".encode('utf-8')
-            send.sendto(username_header+username+message_header+message,('255.255.255.255', 2000))
+            send.sendto(username_header + username + message_header + message,('255.255.255.255', 2000))
 
 def SendUsername():
     global name
@@ -88,6 +88,7 @@ def main():
     send.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST,1)         
 
     print('Welcome to the Chat!')
+    print('Type Quit() to quit')
     
     global name
     name = ''                                                   
@@ -101,16 +102,21 @@ def main():
     print('*************************************************')  
 
     global recvThread
-    recvThread = Thread(target=Chat)               
+    recvThread = Thread(target=Chat) 
+
     global sendMsgThread
     sendMsgThread = Thread(target=SendMessage)  
+
     global online
-    online = []                                         
+    online = []   
+
     global sendOnlineThread
     sendOnlineThread = Thread(target=SendUsername) 
-    recvThread.start()                                          
-    sendMsgThread.start()                                       
-    sendOnlineThread.start()                                    
+
+    recvThread.start() #inicia thread                                          
+    sendMsgThread.start() #inicia envio de  msg                                       
+    sendOnlineThread.start() #envia quem está na rede
+
     recvThread.join()                                           
     sendMsgThread.join()                                        
     sendOnlineThread.join()                                     
