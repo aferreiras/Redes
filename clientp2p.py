@@ -30,7 +30,7 @@ def Chat():
 
            print( username[1:] + ">>" + message)
          
-        elif username[:1] == 'o':#user entrou
+        elif username[:1] == 'o' and username[1:] != name:#user entrou
           
            if not(username[1:] in online):
              online.append(username[1:])
