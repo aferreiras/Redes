@@ -41,7 +41,7 @@ def Chat():
            if (user[1:] in online):
              online.remove(username[1:])
              print("***User disconnected: " + username[1:] + "***")
-             print('***Total Online User: ' + str(len(online))+ "***")
+             print('***Total Online User: ' + str(len(online)) + "***")
 
 def SendMessage():
     global name
